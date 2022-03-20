@@ -130,6 +130,13 @@
             }
           },
           {
+            title: 'Score',
+            align: 'center',
+            render: (h, params) => {
+              return h('span', params.row.statistic_info.score)
+            }
+          },
+          {
             title: this.$i18n.t('m.Time'),
             align: 'center',
             render: (h, params) => {

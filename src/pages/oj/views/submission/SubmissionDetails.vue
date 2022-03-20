@@ -2,12 +2,13 @@
   <Row type="flex" justify="space-around">
     <Col :span="20" id="status">
       <Alert :type="status.type" showIcon>
-        <span class="title">{{$t('m.' + status.statusName.replace(/ /g, "_"))}}</span>
+        <span class="title"><b>Total Score: {{total_score}}</b></span>
         <div slot="desc" class="content">
           <template v-if="isCE">
             <pre>{{submission.statistic_info.err_info}}</pre>
           </template>
           <template v-else>
+            <span>Status: {{$t('m.' + status.statusName.replace(/ /g, "_"))}}</span>
             <span>{{$t('m.Time')}}: {{submission.statistic_info.time_cost | submissionTime}}</span>
             <span>{{$t('m.Memory')}}: {{submission.statistic_info.memory_cost | submissionMemory}}</span>
             <span>{{$t('m.Lang')}}: {{submission.language}}</span>
@@ -98,7 +99,8 @@
           }
         },
         isConcat: false,
-        loading: false
+        loading: false,
+        total_score: 0
       }
     },
     mounted () {
@@ -121,6 +123,7 @@
               }
               this.columns.push(scoreColumn)
               this.loadingTable = false
+              this.total_score = data.statistic_info.score
             }
             if (this.isAdminRole) {
               this.isConcat = true
