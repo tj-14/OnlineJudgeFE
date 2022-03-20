@@ -5,6 +5,10 @@
       <Panel :padding="40" shadow>
         <div slot="title">{{problem.title}}</div>
         <div id="problem-content" class="markdown-body" v-katex>
+          <div v-if="displaypdf">
+            <ProblemPdf :url=displaypdf></ProblemPdf>
+          </div>
+                    
           <p class="title">{{$t('m.Description')}}</p>
           <p class="content" v-html=problem.description></p>
           <!-- {{$t('m.music')}} -->
@@ -203,6 +207,7 @@
   import {mapGetters, mapActions} from 'vuex'
   import {types} from '../../../../store'
   import CodeMirror from '@oj/components/CodeMirror.vue'
+  import ProblemPdf from '@oj/components/ProblemPdf.vue'
   import storage from '@/utils/storage'
   import {FormMixin} from '@oj/components/mixins'
   import {JUDGE_STATUS, CONTEST_STATUS, buildProblemCodeKey} from '@/utils/constants'
@@ -215,7 +220,8 @@
   export default {
     name: 'Problem',
     components: {
-      CodeMirror
+      CodeMirror,
+      ProblemPdf
     },
     mixins: [FormMixin],
     data () {
@@ -237,6 +243,7 @@
         result: {
           result: 9
         },
+        displaypdf: '',
         problem: {
           title: '',
           description: '',
@@ -285,6 +292,10 @@
         api[func](this.problemID, this.contestID).then(res => {
           this.$Loading.finish()
           let problem = res.data.data
+          let link = this.extractLink(problem.description)
+          if (link) {
+            this.displaypdf = link[0]
+          }
           this.changeDomTitle({title: problem.title})
           api.submissionExists(problem.id).then(res => {
             this.submissionExists = res.data.data
@@ -308,6 +319,11 @@
         }, () => {
           this.$Loading.error()
         })
+      },
+      extractLink (desc) {
+        var rx = /\/public\/upload\/(..........\.pdf)/g
+        var arr = desc.match(rx)
+        return arr
       },
       changePie (problemData) {
         // 只显示特定的一些状态
@@ -624,4 +640,3 @@
     height: 480px;
   }
 </style>
-
