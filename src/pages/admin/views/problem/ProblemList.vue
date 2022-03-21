@@ -70,6 +70,9 @@
           label="Operation"
           width="250">
           <div slot-scope="scope">
+            <a :href="'/problem/' + scope.row._id" target="_blank">
+              <icon-btn icon="eye" name="View Problem"></icon-btn>
+            </a>
             <icon-btn name="Edit" icon="edit" @click.native="goEdit(scope.row.id)"></icon-btn>
             <icon-btn v-if="contestId" name="Make Public" icon="clone"
                       @click.native="makeContestProblemPublic(scope.row.id)"></icon-btn>
