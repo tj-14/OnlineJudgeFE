@@ -34,6 +34,11 @@
     </div>
     <div v-show="showMenu" id="contest-menu">
       <VerticalMenu @on-click="handleRoute">
+        <VerticalMenu-item disabled>
+          <Tag type="dot" :color="countdownColor">
+            <span id="countdown">{{countdown}}</span>
+          </Tag>
+        </VerticalMenu-item>
         <VerticalMenu-item :route="{name: 'contest-details', params: {contestID: contestID}}">
           <Icon type="home"></Icon>
           {{$t('m.Overview')}}
@@ -58,7 +63,7 @@
           {{$t('m.Submissions')}}
         </VerticalMenu-item>
 
-        <VerticalMenu-item v-if="OIContestRealTimePermission"
+        <VerticalMenu-item v-if="OIContestRealTimePermission || OIContestRealTimeSubmissionPermission"
                            :disabled="contestMenuDisabled"
                            :route="{name: 'contest-rank', params: {contestID: contestID}}">
           <Icon type="stats-bars"></Icon>
