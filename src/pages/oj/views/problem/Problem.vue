@@ -311,7 +311,7 @@
             return
           }
           // try to load problem template
-          this.language = this.problem.languages[0]
+          this.language = this.getDefaultLanguage(this.problem.languages)
           let template = this.problem.template
           if (template && template[this.language]) {
             this.code = template[this.language]
@@ -319,6 +319,13 @@
         }, () => {
           this.$Loading.error()
         })
+      },
+      getDefaultLanguage (languages) {
+        for (let preferedLanguage in ['C++', 'Python3']) {
+          if (languages.includes(preferedLanguage)) {
+            return preferedLanguage
+          }
+        }
       },
       extractLink (desc) {
         var rx = /\/public\/upload\/(..........\.pdf)/g
