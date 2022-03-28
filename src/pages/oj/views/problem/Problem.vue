@@ -326,6 +326,7 @@
             return preferedLanguage
           }
         }
+        return languages[0]
       },
       extractLink (desc) {
         var rx = /\/public\/upload\/(..........\.pdf)/g
