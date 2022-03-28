@@ -51,7 +51,7 @@
           {{$t('m.Problems')}}
         </VerticalMenu-item>
 
-        <VerticalMenu-item v-if="OIContestRealTimePermission"
+        <VerticalMenu-item v-if="OIContestRealTimePermission || OIContestRealTimeSubmissionPermission"
                            :disabled="contestMenuDisabled"
                            :route="{name: 'contest-submission-list'}">
           <Icon type="navicon-round"></Icon>
@@ -170,7 +170,7 @@
       }),
       ...mapGetters(
         ['contestMenuDisabled', 'contestRuleType', 'contestStatus', 'countdown', 'isContestAdmin',
-          'OIContestRealTimePermission', 'passwordFormVisible']
+          'OIContestRealTimePermission', 'OIContestRealTimeSubmissionPermission', 'passwordFormVisible']
       ),
       countdownColor () {
         if (this.contestStatus) {
