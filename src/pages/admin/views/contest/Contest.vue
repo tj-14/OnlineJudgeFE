@@ -42,10 +42,19 @@
               <el-radio class="radio" v-model="contest.rule_type" label="OI" :disabled="disableRuleType">OI</el-radio>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="4">
             <el-form-item :label="$t('m.Real_Time_Rank')">
               <el-switch
                 v-model="contest.real_time_rank"
+                active-color="#13ce66"
+                inactive-color="#ff4949">
+              </el-switch>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item :label="$t('m.Real_Time_Submission')">
+              <el-switch
+                v-model="contest.real_time_submission"
                 active-color="#13ce66"
                 inactive-color="#ff4949">
               </el-switch>
@@ -103,6 +112,7 @@
           rule_type: 'ACM',
           password: '',
           real_time_rank: true,
+          real_time_submission: true,
           visible: true,
           allowed_ip_ranges: [{
             value: ''

@@ -71,6 +71,8 @@
               this.addStatusColumn(this.ACMTableColumns, res.data.data)
             } else if (this.OIContestRealTimePermission) {
               this.addStatusColumn(this.ACMTableColumns, res.data.data)
+            } else if (this.OIContestRealTimeSubmissionPermission) {
+              this.addStatusColumn(this.OITableColumns, res.data.data)
             }
           }
         })
@@ -89,7 +91,7 @@
       ...mapState({
         problems: state => state.contest.contestProblems
       }),
-      ...mapGetters(['isAuthenticated', 'contestRuleType', 'OIContestRealTimePermission'])
+      ...mapGetters(['isAuthenticated', 'contestRuleType', 'OIContestRealTimePermission', 'OIContestRealTimeSubmissionPermission'])
     }
   }
 </script>

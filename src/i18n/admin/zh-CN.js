@@ -106,6 +106,7 @@ export const m = {
   Contest_Password: '密码',
   Contest_Rule_Type: '规则',
   Real_Time_Rank: '实时排名',
+  Real_Time_Submission: 'Real Time Submission',
   Contest_Status: '状态',
   Allowed_IP_Ranges: '允许的 IP 范围',
   CIDR_Network: 'CIDR 网络',

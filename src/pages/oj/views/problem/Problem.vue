@@ -64,7 +64,7 @@
         <Row type="flex" justify="space-between">
           <Col :span="10">
             <div class="status" v-if="statusVisible">
-              <template v-if="!this.contestID || (this.contestID && OIContestRealTimePermission)">
+              <template v-if="!this.contestID || (this.contestID && (OIContestRealTimePermission || OIContestRealTimeSubmissionPermission))">
                 <span>{{$t('m.Status')}}</span>
                 <Tag type="dot" :color="submissionStatus.color" @click.native="handleRoute('/status/'+submissionId)">
                   {{$t('m.' + submissionStatus.text.replace(/ /g, "_"))}}
@@ -78,7 +78,7 @@
               <Alert type="success" show-icon>{{$t('m.You_have_solved_the_problem')}}</Alert>
             </div>
             <div v-else-if="this.contestID && !OIContestRealTimePermission && submissionExists">
-              <Alert type="success" show-icon>{{$t('m.You_have_submitted_a_solution')}}</Alert>
+              <Alert type="info" show-icon>{{$t('m.You_have_submitted_a_solution')}}</Alert>
             </div>
             <div v-if="contestEnded">
               <Alert type="warning" show-icon>{{$t('m.Contest_has_ended')}}</Alert>
@@ -456,7 +456,7 @@
           })
         }
 
-        if (this.contestRuleType === 'OI' && !this.OIContestRealTimePermission) {
+        if (this.contestRuleType === 'OI' && !(this.OIContestRealTimePermission || this.OIContestRealTimeSubmissionPermission)) {
           if (this.submissionExists) {
             this.$Modal.confirm({
               title: '',
@@ -486,7 +486,7 @@
       }
     },
     computed: {
-      ...mapGetters(['problemSubmitDisabled', 'contestRuleType', 'OIContestRealTimePermission', 'contestStatus']),
+      ...mapGetters(['problemSubmitDisabled', 'contestRuleType', 'OIContestRealTimePermission', 'OIContestRealTimeSubmissionPermission', 'contestStatus']),
       contest () {
         return this.$store.state.contest.contest
       },
