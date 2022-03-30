@@ -315,7 +315,8 @@
         return this.formFilter.result === '' ? this.$i18n.t('m.Status') : this.$i18n.t('m.' + JUDGE_STATUS[this.formFilter.result].name.replace(/ /g, '_'))
       },
       rejudgeColumnVisible () {
-        return !this.contestID && this.user.admin_type === USER_TYPE.SUPER_ADMIN
+        // return !this.contestID && this.user.admin_type === USER_TYPE.SUPER_ADMIN
+        return this.user.admin_type === USER_TYPE.SUPER_ADMIN
       }
     },
     watch: {
