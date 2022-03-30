@@ -21,6 +21,7 @@ export default {
         force_refresh: this.forceUpdate ? '1' : '0'
       }
       api.getContestRank(params).then(res => {
+        console.log(res.data.data.results)
         if (this.showChart && !refresh) {
           this.$refs.chart.hideLoading()
         }
