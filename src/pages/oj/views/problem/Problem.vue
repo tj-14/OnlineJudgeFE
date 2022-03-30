@@ -326,7 +326,7 @@
         })
       },
       getDefaultLanguage (languages) {
-        for (let preferedLanguage in ['C++', 'Python3']) {
+        for (let preferedLanguage of ['C++', 'Python3']) {
           if (languages.includes(preferedLanguage)) {
             return preferedLanguage
           }
