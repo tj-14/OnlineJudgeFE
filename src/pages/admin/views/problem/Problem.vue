@@ -241,6 +241,18 @@
                 :label="$t('m.Output')">
               </el-table-column>
               <el-table-column
+                prop="subtask"
+                label="Subtask">
+                <template slot-scope="scope">
+                  <el-input
+                    size="small"
+                    placeholder="Subtask"
+                    v-model="scope.row.subtask_number"
+                    :disabled="problem.rule_type !== 'OI'">
+                  </el-input>
+                </template>
+              </el-table-column>
+              <el-table-column
                 prop="score"
                 :label="$t('m.Score')">
                 <template slot-scope="scope">
@@ -343,7 +355,7 @@
           spj_compile_ok: false,
           test_case_id: '',
           test_case_score: [],
-          rule_type: 'ACM',
+          rule_type: 'OI',
           hint: '',
           source: '',
           io_mode: {'io_mode': 'Standard IO', 'input': 'input.txt', 'output': 'output.txt'}
@@ -471,6 +483,7 @@
         let fileList = response.data.info
         for (let file of fileList) {
           file.score = (100 / fileList.length).toFixed(0)
+          file.subtask_number = 0
           if (!file.output_name && this.problem.spj) {
             file.output_name = '-'
           }
@@ -649,4 +662,3 @@
     overflow-x: scroll;
   }
 </style>
-
