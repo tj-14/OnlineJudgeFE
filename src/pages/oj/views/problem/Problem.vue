@@ -215,7 +215,7 @@
   import ProblemPdf from '@oj/components/ProblemPdf.vue'
   import storage from '@/utils/storage'
   import {FormMixin} from '@oj/components/mixins'
-  import {JUDGE_STATUS, CONTEST_STATUS, buildProblemCodeKey} from '@/utils/constants'
+  import {JUDGE_STATUS, CONTEST_STATUS_REVERSE, CONTEST_STATUS, buildProblemCodeKey} from '@/utils/constants'
   import api from '@oj/api'
   import {pie, largePie} from './chartData'
 
@@ -499,7 +499,12 @@
       }
     },
     computed: {
-      ...mapGetters(['countdown', 'problemSubmitDisabled', 'contestRuleType', 'OIContestRealTimePermission', 'OIContestRealTimeSubmissionPermission', 'contestStatus']),
+      ...mapGetters(['contestStatus', 'countdown', 'problemSubmitDisabled', 'contestRuleType', 'OIContestRealTimePermission', 'OIContestRealTimeSubmissionPermission', 'contestStatus']),
+      countdownColor () {
+        if (this.contestStatus) {
+          return CONTEST_STATUS_REVERSE[this.contestStatus].color
+        }
+      },
       contest () {
         return this.$store.state.contest.contest
       },
