@@ -216,7 +216,6 @@
               </el-radio-group>
             </el-form-item>
           </el-col>
-
           <el-col :span="4" v-if="problem.io_mode.io_mode == 'File IO'">
             <el-form-item :label="$t('m.InputFileName')" required>
               <el-input type="text" v-model="problem.io_mode.input"></el-input>
@@ -236,9 +235,22 @@
                 prop="input_name"
                 :label="$t('m.Input')">
               </el-table-column>
+              
               <el-table-column
                 prop="output_name"
                 :label="$t('m.Output')">
+              </el-table-column>
+              <el-table-column
+                prop="subtask"
+                label="Subtask">
+                <template slot-scope="scope">
+                  <el-input
+                    size="small"
+                    placeholder="Subtask"
+                    v-model="scope.row.subtask_number"
+                    :disabled="problem.rule_type !== 'OI'">
+                  </el-input>
+                </template>
               </el-table-column>
               <el-table-column
                 prop="score"
@@ -343,7 +355,7 @@
           spj_compile_ok: false,
           test_case_id: '',
           test_case_score: [],
-          rule_type: 'ACM',
+          rule_type: 'OI',
           hint: '',
           source: '',
           io_mode: {'io_mode': 'Standard IO', 'input': 'input.txt', 'output': 'output.txt'}
@@ -471,6 +483,7 @@
         let fileList = response.data.info
         for (let file of fileList) {
           file.score = (100 / fileList.length).toFixed(0)
+          file.subtask_number = 0
           if (!file.output_name && this.problem.spj) {
             file.output_name = '-'
           }
@@ -575,6 +588,7 @@
         if (funcName === 'editContestProblem') {
           this.problem.contest_id = this.contest.id
         }
+
         api[funcName](this.problem).then(res => {
           if (this.routeName === 'create-contest-problem' || this.routeName === 'edit-contest-problem') {
             this.$router.push({name: 'contest-problem-list', params: {contestId: this.$route.params.contestId}})
