@@ -108,6 +108,11 @@
     <div id="right-column">
       <VerticalMenu @on-click="handleRoute">
         <template v-if="this.contestID">
+          <VerticalMenu-item disabled>
+            <Tag type="dot" :color="countdownColor">
+              <span id="countdown">{{countdown}}</span>
+            </Tag>
+          </VerticalMenu-item>
           <VerticalMenu-item :route="{name: 'contest-problem-list', params: {contestID: contestID}}">
             <Icon type="ios-photos"></Icon>
             {{$t('m.Problems')}}
@@ -119,13 +124,13 @@
           </VerticalMenu-item>
         </template>
 
-        <VerticalMenu-item v-if="!this.contestID || OIContestRealTimePermission" :route="submissionRoute">
+        <VerticalMenu-item v-if="!this.contestID || OIContestRealTimePermission || OIContestRealTimeSubmissionPermission" :route="submissionRoute">
           <Icon type="navicon-round"></Icon>
            {{$t('m.Submissions')}}
         </VerticalMenu-item>
 
         <template v-if="this.contestID">
-          <VerticalMenu-item v-if="!this.contestID || OIContestRealTimePermission"
+          <VerticalMenu-item v-if="!this.contestID || OIContestRealTimePermission || OIContestRealTimeSubmissionPermission"
                              :route="{name: 'contest-rank', params: {contestID: contestID}}">
             <Icon type="stats-bars"></Icon>
             {{$t('m.Rankings')}}
@@ -494,7 +499,7 @@
       }
     },
     computed: {
-      ...mapGetters(['problemSubmitDisabled', 'contestRuleType', 'OIContestRealTimePermission', 'OIContestRealTimeSubmissionPermission', 'contestStatus']),
+      ...mapGetters(['countdown', 'problemSubmitDisabled', 'contestRuleType', 'OIContestRealTimePermission', 'OIContestRealTimeSubmissionPermission', 'contestStatus']),
       contest () {
         return this.$store.state.contest.contest
       },
@@ -549,6 +554,10 @@
       flex: none;
       width: 220px;
     }
+  }
+
+  #countdown {
+    font-size: 16px;
   }
 
   #problem-content {
