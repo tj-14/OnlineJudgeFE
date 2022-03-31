@@ -9,37 +9,43 @@ export const JUDGE_STATUS = {
     name: 'Wrong Answer',
     short: 'WA',
     color: 'red',
-    type: 'error'
+    type: 'error',
+    alpha: '-'
   },
   '0': {
     name: 'Accepted',
     short: 'AC',
     color: 'green',
-    type: 'success'
+    type: 'success',
+    alpha: 'P'
   },
   '1': {
     name: 'Time Limit Exceeded',
     short: 'TLE',
     color: 'red',
-    type: 'error'
+    type: 'error',
+    alpha: 'T'
   },
   '2': {
     name: 'Time Limit Exceeded',
     short: 'TLE',
     color: 'red',
-    type: 'error'
+    type: 'error',
+    alpha: 'T'
   },
   '3': {
     name: 'Memory Limit Exceeded',
     short: 'MLE',
     color: 'red',
-    type: 'error'
+    type: 'error',
+    alpha: 'X'
   },
   '4': {
     name: 'Runtime Error',
     short: 'RE',
     color: 'red',
-    type: 'error'
+    type: 'error',
+    alpha: 'X'
   },
   '5': {
     name: 'System Error',
