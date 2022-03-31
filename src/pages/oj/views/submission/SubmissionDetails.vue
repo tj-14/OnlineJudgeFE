@@ -2,7 +2,7 @@
   <Row type="flex" justify="space-around">
     <Col :span="20" id="status">
       <Alert :type="status.type" showIcon>
-        <span class="title"><b>Total Score: {{total_score}}</b></span>
+        <span class="title"><b>Total Score: {{total_score}} {{subtask_score}}</b></span>
         <div slot="desc" class="content">
           <template v-if="isCE">
             <pre>{{submission.statistic_info.err_info}}</pre>
@@ -100,7 +100,8 @@
         },
         isConcat: false,
         loading: false,
-        total_score: 0
+        total_score: 0,
+        subtask_score: []
       }
     },
     mounted () {
@@ -124,6 +125,11 @@
               this.columns.push(scoreColumn)
               this.loadingTable = false
               this.total_score = data.statistic_info.score
+              var values = []
+              for (var k in data.statistic_info.subtask_score) {
+                values.push(data.statistic_info.subtask_score[k])
+              }
+              this.subtask_score = values
             }
             if (this.isAdminRole) {
               this.isConcat = true
