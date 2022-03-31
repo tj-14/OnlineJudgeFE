@@ -101,7 +101,7 @@
         isConcat: false,
         loading: false,
         total_score: 0,
-        subtask_score: []
+        subtask_score: ''
       }
     },
     mounted () {
@@ -125,11 +125,21 @@
               this.columns.push(scoreColumn)
               this.loadingTable = false
               this.total_score = data.statistic_info.score
-              var values = []
-              for (var k in data.statistic_info.subtask_score) {
-                values.push(data.statistic_info.subtask_score[k])
+              if (data.statistic_info.has_subtask > 0) {
+                var values = []
+                for (var k in data.statistic_info.subtask_score) {
+                  values.push(data.statistic_info.subtask_score[k])
+                }
+                this.subtask_score = values
+                const subtaskColumn = {
+                  title: this.$i18n.t('m.SubtaskNumber'),
+                  align: 'center',
+                  render: (h, params) => {
+                    return h('span', params.row.subtask_number)
+                  }
+                }
+                this.columns.push(subtaskColumn)
               }
-              this.subtask_score = values
             }
             if (this.isAdminRole) {
               this.isConcat = true
