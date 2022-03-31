@@ -133,11 +133,12 @@
                 const alpha = JUDGE_STATUS[r.result].alpha
                 if (r.subtask_number > lastSubtaskNumber) {
                   lastSubtaskNumber = r.subtask_number
-                  this.alpha_score += '|'
+                  this.alpha_score += ']['
                 }
                 this.alpha_score += alpha
               }
               if (data.statistic_info.has_subtask > 0) {
+                this.alpha_score = '[' + this.alpha_score + ']'
                 var values = []
                 for (var k in data.statistic_info.subtask_score) {
                   values.push(data.statistic_info.subtask_score[k])
