@@ -82,7 +82,7 @@ export default {
           })
           let progressBackground = h('div', {
             style: {
-              'background-color': 'red',
+              'background-color': '#ff5050',
               'border-radius': '10px',
               position: 'absolute',
               width: '100%',
