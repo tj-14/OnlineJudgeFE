@@ -216,6 +216,7 @@
               </el-radio-group>
             </el-form-item>
           </el-col>
+
           <el-col :span="4" v-if="problem.io_mode.io_mode == 'File IO'">
             <el-form-item :label="$t('m.InputFileName')" required>
               <el-input type="text" v-model="problem.io_mode.input"></el-input>
@@ -235,7 +236,6 @@
                 prop="input_name"
                 :label="$t('m.Input')">
               </el-table-column>
-              
               <el-table-column
                 prop="output_name"
                 :label="$t('m.Output')">
@@ -588,7 +588,6 @@
         if (funcName === 'editContestProblem') {
           this.problem.contest_id = this.contest.id
         }
-
         api[funcName](this.problem).then(res => {
           if (this.routeName === 'create-contest-problem' || this.routeName === 'edit-contest-problem') {
             this.$router.push({name: 'contest-problem-list', params: {contestId: this.$route.params.contestId}})
